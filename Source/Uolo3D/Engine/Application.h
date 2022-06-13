@@ -11,7 +11,6 @@
 #include "memory"
 
 namespace Uolo3D {
-
     class Application : public Object{
     public:
         Application(Context *context);
@@ -20,8 +19,6 @@ namespace Uolo3D {
         virtual void Run();
         virtual void Stop() {};
         virtual void Exit() {};
-
-
 
     protected:
         std::shared_ptr<Engine> engine_;
