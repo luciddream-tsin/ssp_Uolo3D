@@ -8,11 +8,15 @@
 
 
 namespace Uolo3D {
-    Engine::Engine(Context *context) {
+    Engine::Engine(Context *context) : exiting_(false){
 
     }
 
-    void Engine::Run() {
+    void Engine::RunFrame() {
+        std::cout << "run frame..." << std::endl;
+    }
 
+    bool Engine::IsExiting() {
+        return exiting_;
     }
 }

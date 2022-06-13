@@ -16,9 +16,6 @@ void HelloWorld::Start() {
 
 }
 
-void HelloWorld::Run() {
-
-}
 
 void HelloWorld::Stop() {
 

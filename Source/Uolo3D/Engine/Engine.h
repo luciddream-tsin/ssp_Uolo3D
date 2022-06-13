@@ -15,8 +15,13 @@ namespace Uolo3D {
 
         Engine(Context *context);
 
-        void Run();
+        void RunFrame();
+        bool IsExiting();
 
+
+
+    private:
+        bool exiting_;
 
     };
 }

@@ -10,6 +10,6 @@ using namespace Uolo3D;
 
 int main(){
     std::shared_ptr<Context> context {new Context()};
-    HelloWorld helloWorld{context.get()};
-    helloWorld.Run();
+    std::shared_ptr<HelloWorld> helloWorld{new HelloWorld(context.get())};
+    helloWorld->Run();
 }

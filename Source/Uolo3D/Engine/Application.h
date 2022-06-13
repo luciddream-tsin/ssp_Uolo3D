@@ -7,17 +7,24 @@
 
 
 #include "Core/Object.h"
+#include "Engine.h"
+#include "memory"
 
 namespace Uolo3D {
 
     class Application : public Object{
     public:
         Application(Context *context);
-        virtual void Setup() = 0;
-        virtual void Start() = 0;
-        virtual void Run() = 0;
-        virtual void Stop() = 0;
-        virtual void Exit() = 0;
+        virtual void Setup() {};
+        virtual void Start() {};
+        virtual void Run();
+        virtual void Stop() {};
+        virtual void Exit() {};
+
+
+
+    protected:
+        std::shared_ptr<Engine> engine_;
     };
 }
 

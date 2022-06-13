@@ -7,5 +7,14 @@
 namespace Uolo3D{
     Application::Application(Context *context): Object(context) {
 
+        engine_.reset(new Engine(context));
+
     }
+
+    void Application::Run() {
+        while (!engine_->IsExiting())
+            engine_->RunFrame();
+    }
+
+
 }

@@ -13,7 +13,6 @@ public:
 
     void Setup() override;
     void Start() override;
-    void Run() override;
     void Stop() override;
     void Exit() override;
 
