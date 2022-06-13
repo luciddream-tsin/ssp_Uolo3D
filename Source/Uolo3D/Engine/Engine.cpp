@@ -4,9 +4,7 @@
 
 #include "Engine.h"
 #include "Core/Context.h"
-#include "iostream"
 #include "IO/Log.h"
-
 
 namespace Uolo3D {
     Engine::Engine(Context *context) : Object(context), exiting_(false){
