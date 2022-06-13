@@ -12,10 +12,6 @@ using namespace Uolo3D;
 int main(){
     std::shared_ptr<Context> context {new Context()};
     std::shared_ptr<HelloWorld> helloWorld{new HelloWorld(context.get())};
-    //helloWorld->Run();
-    //test log:
-    Log log(context.get());
-    log.Write(LOG_WARNING, "this is a warning!");
-
+    helloWorld->Run();
 
 }

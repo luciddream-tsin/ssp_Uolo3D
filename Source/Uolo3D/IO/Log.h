@@ -22,13 +22,21 @@ namespace Uolo3D {
     public:
         Log(Context *context);
 
-        void Write(int level, const std::string& message);
+        static void Write(int level, const std::string& message);
 
 
 
     private:
         int level_;
     };
+
+
+#define UOLO3D_LOG(level, message) Uolo3D::Log::Write(level, message)
+#define UOLO3D_DEBUG(message) Uolo3D::Log::Write(Uolo3D::LOG_DEBUG, message)
+#define UOLO3D_INFO(message) Uolo3D::Log::Write(Uolo3D::LOG_INFO, message)
+#define UOLO3D_WARNING(message) Uolo3D::Log::Write(Uolo3D::LOG_WARNING, message)
+#define UOLO3D_ERROE(message) Uolo3D::Log::Write(Uolo3D::LOG_ERROR, message)
+
 }
 
 
