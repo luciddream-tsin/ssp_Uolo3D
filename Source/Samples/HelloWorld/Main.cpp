@@ -13,5 +13,4 @@ int main(){
     std::shared_ptr<Context> context {new Context()};
     std::shared_ptr<HelloWorld> helloWorld{new HelloWorld(context.get())};
     helloWorld->Run();
-
 }

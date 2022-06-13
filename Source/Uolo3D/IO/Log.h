@@ -19,6 +19,7 @@ namespace Uolo3D {
             {"", "DEBUG", "INFO", "WARNING", "ERROR"};
 
     class Log :public Object{
+        UOLO3D_CLASS_INFO(Log, Object)
     public:
         Log(Context *context);
 

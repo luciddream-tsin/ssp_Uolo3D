@@ -8,6 +8,8 @@
 #include "Engine/Application.h"
 using namespace Uolo3D;
 class HelloWorld :public Application{
+    UOLO3D_CLASS_INFO(HelloWorld, Application)
+
 public:
     HelloWorld(Context *context);
 

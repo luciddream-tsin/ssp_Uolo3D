@@ -4,11 +4,14 @@
 
 #ifndef SSP_UOLO3D_ENGINE_H
 #define SSP_UOLO3D_ENGINE_H
+#include "Core/Object.h"
 
 namespace Uolo3D {
     class Context;
+    class Log;
 
-    class Engine {
+    class Engine : public Object{
+        UOLO3D_CLASS_INFO(Engine, Object)
 
     public:
         Engine() = delete;
@@ -22,6 +25,7 @@ namespace Uolo3D {
 
     private:
         bool exiting_;
+        std::shared_ptr<Log> log_;// tmp for test
 
     };
 }
