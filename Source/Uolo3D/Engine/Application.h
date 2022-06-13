@@ -12,6 +12,7 @@
 
 namespace Uolo3D {
     class Application : public Object{
+        //FIXME: 继承结构的中间类没有实现UOLO3D_CLASS_INFO宏, 但报错.
     public:
         Application(Context *context);
         virtual void Setup() {};
