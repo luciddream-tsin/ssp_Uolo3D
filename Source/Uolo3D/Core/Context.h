@@ -10,7 +10,7 @@
 
 namespace Uolo3D {
 
-    class Context : public Object{
+    class Context{
     public:
         Context();
 

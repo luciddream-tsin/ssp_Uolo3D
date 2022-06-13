@@ -6,10 +6,14 @@
 #define SSP_UOLO3D_OBJECT_H
 
 namespace Uolo3D {
-
+    class Context;
     class Object {
     public:
-        Object();
+        Object(Context *context);
+
+
+    protected:
+        Context *context_;
 
     };
 }

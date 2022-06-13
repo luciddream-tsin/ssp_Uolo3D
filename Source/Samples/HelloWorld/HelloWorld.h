@@ -5,8 +5,18 @@
 #ifndef SSP_UOLO3D_HELLOWORLD_H
 #define SSP_UOLO3D_HELLOWORLD_H
 
+#include "Engine/Application.h"
+using namespace Uolo3D;
+class HelloWorld :public Application{
+public:
+    HelloWorld(Context *context);
 
-class HelloWorld {
+    void Setup() override;
+    void Start() override;
+    void Run() override;
+    void Stop() override;
+    void Exit() override;
+
 
 };
 

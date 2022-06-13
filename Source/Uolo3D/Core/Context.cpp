@@ -5,7 +5,7 @@
 #include "Context.h"
 
 namespace Uolo3D{
-    Context::Context() : Object(){
+    Context::Context() {
 
     }
 }
