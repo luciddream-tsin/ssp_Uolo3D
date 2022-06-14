@@ -21,8 +21,6 @@ namespace Uolo3D {
         void RunFrame();
         bool IsExiting();
 
-
-
     private:
         bool exiting_;
         std::shared_ptr<Log> log_;// tmp for test

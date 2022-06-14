@@ -5,6 +5,8 @@
 #ifndef SSP_UOLO3D_OBJECT_H
 #define SSP_UOLO3D_OBJECT_H
 #include "string"
+#include "list"
+#include "CoreEvents.h"
 
 using namespace std;
 
@@ -27,7 +29,7 @@ namespace Uolo3D {
         const ClassInfo *baseClassInfo_;
     };
 
-
+//--------------------------------------------------------------------------------------------------------------------
 //这个宏的作用是, 为每个在Uolo3D系统中运作的类, 插入获得它类型信息的函数
 //注意这个函数是静态的, 这样可以实现通过父类的类名, 获得父类的ClassInfo
 //当一个类调用了该函数, 会按照继承顺序逆向递归的, 为每个父类生成ClassInfo
@@ -56,15 +58,19 @@ static const Uolo3D::ClassInfo *GetClassInfoStatic(){                           
 virtual size_t GetType() const override {return GetClassInfoStatic()->GetType();}                              \
 virtual const string &GetTypeName() const override {return GetClassInfoStatic()->GetTypeName();}               \
 virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStatic()->IsClassOf(typeHash);}     \
+//--------------------------------------------------------------------------------------------------------------------
 
 
 
 
     class Context;
+    class EventHandler;
     class Object {
     public:
         Object(Context *context);
+        ~Object();
 
+        //-----------------------------------ClassInfo 相关设计 begin-----------
         //Object类为最顶层的类, 而且绝大多数类都继承于它, 将它的类型信息设为空是合理的
         //即是, 没有必要单独使用信息来标识它.
         //同时, 结合ClassInfo::IsClassOf实现, 可以表示回溯继承结构的终点.
@@ -73,12 +79,49 @@ virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStati
         virtual size_t GetType() const = 0;
         virtual const string& GetTypeName() const = 0;
         virtual bool IsClassOf(size_t typeHash) const = 0;
+        //-----------------------------------ClassInfo 相关设计 end  -----------
 
+
+
+        //--------------------------------------------------------------------
+        void SubscribeToEvent(size_t eventType, EventHandler *eventHandler);
+        void SendEvent(size_t eventType);
+        void OnEvent(size_t eventType);
 
     protected:
         Context *context_;
-
+        std::list<std::shared_ptr<EventHandler>> eventHandlers_;
     };
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------
+//EventHandler 使用C++11的类成员函数绑定, 不需要维护一个receiver指针, 也就是注册函数的调用者.
+    class EventHandler{
+    public:
+        EventHandler(std::function<void(size_t)> handlerFunc);
+
+        void SetEventType(size_t eventType){eventType_ = eventType;};
+
+        bool IsType(size_t eventType){
+            return (eventType == eventType_);
+        }
+        void Exec(){
+            handler_(eventType_);
+        }
+    protected:
+        size_t eventType_;
+        std::function<void(size_t)> handler_;
+    };
+
+
+
+
+
+
+
+
 }
 
 

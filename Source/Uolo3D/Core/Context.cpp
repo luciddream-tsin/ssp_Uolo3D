@@ -8,4 +8,11 @@ namespace Uolo3D{
     Context::Context() {
 
     }
+
+    void Context::AddEventReceiver(Object *receiver, size_t eventType) {
+        //TODO: 一个对象对同一个事件注册多次应给出提示或直接禁止
+        auto &receiversGroup = eventReceiversMap_[eventType];
+        receiversGroup.push_back(receiver);
+    }
+
 }

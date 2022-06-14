@@ -12,6 +12,8 @@ namespace Uolo3D{
 
     Log::Log(Context *context) : Object(context), level_(LOG_INFO) {
         instanceLog = this;
+
+        SubscribeToEvent(E_ENDFRAME, new EventHandler(std::bind(&Log::EndFrameHandler, this, std::placeholders::_1)));
     }
 
     void Log::Write(int level, const std::string &message) {
