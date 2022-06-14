@@ -18,7 +18,6 @@ namespace Uolo3D {
         virtual void Setup() {};
         virtual void Start() {};
         virtual void Run();
-        virtual void Stop() {};
         virtual void Exit() {};
 
     protected:

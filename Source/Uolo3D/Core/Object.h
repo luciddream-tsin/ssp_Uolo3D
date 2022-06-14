@@ -68,7 +68,8 @@ virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStati
     class Object {
     public:
         Object(Context *context);
-        ~Object();
+        //任何带有虚函数的类, 将他的析构函数设置为虚析构是合理且必须的.
+        virtual ~Object();
 
         //-----------------------------------ClassInfo 相关设计 begin-----------
         //Object类为最顶层的类, 而且绝大多数类都继承于它, 将它的类型信息设为空是合理的

@@ -3,24 +3,22 @@
 //
 
 #include "HelloWorld.h"
+#include "IO/Log.h"
 
 HelloWorld::HelloWorld(Context *context): Application(context){
 
 }
 
 void HelloWorld::Setup() {
-
+    UOLO3D_INFO("Hello World Setup Called.");
 }
 
 void HelloWorld::Start() {
-
+    UOLO3D_INFO("Hello World Start Called.");
 }
 
 
-void HelloWorld::Stop() {
-
-}
 
 void HelloWorld::Exit() {
-
+    UOLO3D_INFO("Hello World Exit Called.");
 }

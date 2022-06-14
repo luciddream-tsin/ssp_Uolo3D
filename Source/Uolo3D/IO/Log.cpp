@@ -7,7 +7,6 @@
 
 namespace Uolo3D{
 
-
     static Log* instanceLog = nullptr;
 
     Log::Log(Context *context) : Object(context), level_(LOG_INFO) {

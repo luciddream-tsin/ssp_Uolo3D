@@ -15,4 +15,9 @@ namespace Uolo3D{
         receiversGroup.push_back(receiver);
     }
 
+    void Context::RegisterSubsystem(Object *object) {
+        if (!object) return;
+        subsystem_[object->GetType()].reset(object);
+    }
+
 }

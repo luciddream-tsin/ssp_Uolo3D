@@ -14,8 +14,11 @@ namespace Uolo3D{
     void Application::Run() {
         Setup();
         Start();
+
         while (!engine_->IsExiting())
             engine_->RunFrame();
+
+        Exit();
     }
 
 
