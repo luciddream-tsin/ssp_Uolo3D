@@ -6,6 +6,8 @@
 #define SSP_UOLO3D_OBJECT_H
 #include "string"
 #include "list"
+#include "memory"
+#include "functional"
 #include "CoreEvents.h"
 
 using namespace std;
@@ -55,6 +57,10 @@ static const Uolo3D::ClassInfo *GetClassInfoStatic(){                           
     static const ClassInfo classInfo{#className, baseClassName::GetClassInfoStatic()};                         \
     return &classInfo;                                                                                         \
 }                                                                                                              \
+                                                                                                               \
+static size_t GetTypeStatic() {return GetClassInfoStatic()->GetType();}                                       \
+static const string &GetTypeNameStatic() {return GetClassInfoStatic()->GetTypeName();}                         \
+                                                                                                               \
 virtual size_t GetType() const override {return GetClassInfoStatic()->GetType();}                              \
 virtual const string &GetTypeName() const override {return GetClassInfoStatic()->GetTypeName();}               \
 virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStatic()->IsClassOf(typeHash);}     \

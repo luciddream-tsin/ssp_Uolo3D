@@ -14,6 +14,18 @@ namespace Uolo3D {
 
     }
 
+    bool Engine::Initialize(unordered_map<string, ep_type> engineParameters) {
+        //TODO: when initialize failed, set exiting_ = true and return
+        int i = engineParameters[EP_LOG_LEVEL].int_;
+
+        context_->GetSubsystem<Log>()->SetLogLevel(engineParameters[EP_LOG_LEVEL].int_);
+
+
+
+        return false;
+
+    }
+
     void Engine::RunFrame() {
 
         SendEvent(E_ENDFRAME);

@@ -20,4 +20,5 @@ namespace Uolo3D{
         subsystem_[object->GetType()].reset(object);
     }
 
+
 }

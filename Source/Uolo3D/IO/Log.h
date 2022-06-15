@@ -24,6 +24,12 @@ namespace Uolo3D {
         Log(Context *context);
 
         static void Write(int level, const std::string& message);
+        static void Write(const std::string& message);
+
+
+        void SetLogLevel(int level){
+            level_ = level;
+        };
 
 
         void EndFrameHandler(size_t eventType);
@@ -31,10 +37,10 @@ namespace Uolo3D {
 
 
     private:
-        int level_;
+        static int level_;
     };
 
-
+#define UOLO3D_LOG_(message) Uolo3D::Log::Write(message)
 #define UOLO3D_LOG(level, message) Uolo3D::Log::Write(level, message)
 #define UOLO3D_DEBUG(message) Uolo3D::Log::Write(Uolo3D::LOG_DEBUG, message)
 #define UOLO3D_INFO(message) Uolo3D::Log::Write(Uolo3D::LOG_INFO, message)

@@ -4,17 +4,28 @@
 
 #include "HelloWorld.h"
 #include "IO/Log.h"
+#include "Engine/EngineDefs.h"
+#include "iostream"
 
 HelloWorld::HelloWorld(Context *context): Application(context){
 
 }
 
 void HelloWorld::Setup() {
-    UOLO3D_INFO("Hello World Setup Called.");
+    UOLO3D_LOG_("Hello World Setup Called.");
+
+    engineParameters_[EP_OPENGL].bool_ = true;
+    engineParameters_[EP_FULL_SCREEN].bool_ = false;
+    engineParameters_[EP_LOG_LEVEL].int_ = LOG_DEBUG;
+    engineParameters_[EP_WINDOW_POSITION_X].int_ = 800;
+    engineParameters_[EP_WINDOW_POSITION_Y].int_ = 500;
+    engineParameters_[EP_WINDOW_SIZE_W].int_ = 400;
+    engineParameters_[EP_WINDOW_SIZE_H].int_ = 320;
+
 }
 
 void HelloWorld::Start() {
-    UOLO3D_INFO("Hello World Start Called.");
+    UOLO3D_LOG_("Hello World Start Called.");
 }
 
 

@@ -1,0 +1,31 @@
+- add GetSubsystem Func Of Context.
+添加两个静态的GetTypeStatic() 和 GetTypeNameStatic() of Object,  原因是
+我们在GetSubsystem<T>()的时候 T 只是名称, 我们通过GetClassInfo要多调用一次.
+
+- add engineParameters_ and Initialize Func Of Engine.
+
+- add Cull engine_->Initialize(...) At Application->Run().
+
+- 学到的新知识：
+    union ep_type{
+        int int_;
+        string str_;
+        bool bool_;
+
+        //含有string类型, 他又非平凡的构造和析构, 该 union 类的默认相关的复制/移动构造函数、复制/移动赋值函数、析构函数都会被删除
+        //你必须显示声明,不然无法使用,
+        //注意, 复制的时候它会调用你实现的拷贝构造函数, 你不可以用如下函数来逃避
+        //不然它调用你的函数但实际上社么都没有做, 结果是不确定的, 有可能它指向了临近的内存,
+        //出现奇怪的(比如这次你没调用的打印函数, 函数内的字符串竟然被你当前的打印操作打印出来了...)
+        //ep_type(){}
+        //ep_type(const ep_type &){};
+        //~ep_type(){}
+
+        ep_type(){
+            int_ = -1;
+        }
+        ep_type(const ep_type &t){
+            memcpy(this, &t, sizeof(t));
+        };
+        ~ep_type(){}
+    };

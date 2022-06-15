@@ -9,7 +9,8 @@ namespace Uolo3D{
 
     static Log* instanceLog = nullptr;
 
-    Log::Log(Context *context) : Object(context), level_(LOG_INFO) {
+    int Log::level_ = LOG_INFO;
+    Log::Log(Context *context) : Object(context) {
         instanceLog = this;
 
         SubscribeToEvent(E_ENDFRAME, new EventHandler(std::bind(&Log::EndFrameHandler, this, std::placeholders::_1)));
@@ -17,16 +18,25 @@ namespace Uolo3D{
 
     void Log::Write(int level, const std::string &message) {
 
-        if (instanceLog->level_ > level) return;
+        //if (instanceLog->level_ > level) return;
 
         std::string formattedMessage = levelPrefixes[level];
         formattedMessage += (": " + message);
 
-        std::cout << formattedMessage << std::endl;
+        std::cout << formattedMessage << std::endl << std::flush;
 
     }
 
+    void Log::Write(const std::string &message) {
+
+
+
+        std::string formattedMessage = levelPrefixes[level_];
+        formattedMessage += (": " + message);
+
+        std::cout <<flush<< formattedMessage << std::endl;    }
+
     void Log::EndFrameHandler(size_t eventType) {
-        Write(LOG_INFO, "Log's EndFrame Exec be called ...");
+        Write("Log's EndFrame Exec be called ...");
     }
 }

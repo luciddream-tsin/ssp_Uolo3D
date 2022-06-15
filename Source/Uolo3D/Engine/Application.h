@@ -10,7 +10,9 @@
 #include "Engine.h"
 #include "memory"
 
+
 namespace Uolo3D {
+
     class Application : public Object{
         //FIXME: 继承结构的中间类没有实现UOLO3D_CLASS_INFO宏, 但报错.
     public:
@@ -22,6 +24,7 @@ namespace Uolo3D {
 
     protected:
         std::shared_ptr<Engine> engine_;
+        std::unordered_map<string, ep_type> engineParameters_;
     };
 }
 

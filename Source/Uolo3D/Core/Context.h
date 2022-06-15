@@ -22,6 +22,11 @@ namespace Uolo3D {
         };
         void RegisterSubsystem(Object *object);
 
+        template<typename T>
+        T* GetSubsystem(){
+            return (T*)(subsystem_[T::GetTypeStatic()]).get();
+        };
+
 
 
 
