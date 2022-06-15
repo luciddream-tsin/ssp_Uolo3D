@@ -25,4 +25,8 @@ namespace Uolo3D{
         std::cout << formattedMessage << std::endl;
 
     }
+
+    void Log::EndFrameHandler(size_t eventType) {
+        Write(LOG_INFO, "Log's EndFrame Exec be called ...");
+    }
 }

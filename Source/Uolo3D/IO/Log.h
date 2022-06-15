@@ -26,9 +26,7 @@ namespace Uolo3D {
         static void Write(int level, const std::string& message);
 
 
-        void EndFrameHandler(size_t eventType){
-            Write(LOG_INFO, "Log's EndFrame Exec be called ...");
-        };
+        void EndFrameHandler(size_t eventType);
 
 
 
