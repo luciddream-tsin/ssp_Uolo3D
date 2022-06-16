@@ -15,4 +15,8 @@ set(UoloSources
         )
 add_library(Uolo3D ${UoloSources})
 
-target_link_libraries(Uolo3D SDL2d)
+#windows mingw
+#target_link_libraries(Uolo3D SDL2d)
+
+#linux
+target_link_libraries(Uolo3D SDL2-2.0d)

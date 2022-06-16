@@ -5,6 +5,7 @@
 #ifndef UOLO3D_ENGINEDEFS_H
 #define UOLO3D_ENGINEDEFS_H
 
+#include <cstring>
 #include "string"
 
 namespace Uolo3D {
