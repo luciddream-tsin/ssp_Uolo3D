@@ -20,7 +20,7 @@ namespace Uolo3D {
         Engine() = delete;
         Engine(Context *context);
 
-        bool Initialize(unordered_map<string, ep_type> engineParameters);
+        bool Initialize(unordered_map<string, params_union> engineParameters);
 
         void RunFrame();
         bool IsExiting();

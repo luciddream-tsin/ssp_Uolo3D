@@ -18,7 +18,7 @@ namespace Uolo3D {
     static const std::string EP_WINDOW_SIZE_H = "WindowSizeH";
 
 
-    union ep_type{
+    union params_union{
         int int_;
         string str_;
         bool bool_;
@@ -28,17 +28,17 @@ namespace Uolo3D {
         //注意, 复制的时候它会调用你实现的拷贝构造函数, 你不可以用如下函数来逃避
         //不然它调用你的函数但实际上社么都没有做, 结果是不确定的, 有可能它指向了临近的内存,
         //出现奇怪的(比如这次你没调用的打印函数, 函数内的字符串竟然被你当前的打印操作打印出来了...)
-        //ep_type(){}
-        //ep_type(const ep_type &){};
-        //~ep_type(){}
+        //params_union(){}
+        //params_union(const params_union &){};
+        //params_unionunion(){}
 
-        ep_type(){
+        params_union(){
             int_ = -1;
         }
-        ep_type(const ep_type &t){
+        params_union(const params_union &t){
             memcpy(this, &t, sizeof(t));
         };
-        ~ep_type(){}
+        ~params_union(){}
     };
 }
 #endif //UOLO3D_ENGINEDEFS_H

@@ -9,6 +9,7 @@
 #include "memory"
 #include "functional"
 #include "CoreEvents.h"
+#include "Uolo3D.h"
 
 using namespace std;
 

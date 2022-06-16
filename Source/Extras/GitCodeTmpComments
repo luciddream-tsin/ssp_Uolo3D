@@ -1,0 +1,32 @@
+// 添加SDL2库(先用Urho3D 自带的以后再改动), 启动一个窗口
+
+- 前言
+------------------------------------------------------------------------------------------------------------
+. 之前添加了Graphics和Renderer两个空类,我们现在只要处理Graphics让他启动一个SDL窗口
+
+. SDL的启动需要特定的图形API, 所以我们把代码放到GraphicsAPI/OpenGL/GLGraphics.cpp中
+
+. GLGraphicsImpl.h 中的GLGraphicsImpl类是对OpenGL这个状态机各个状态开关的抽象, 实际上它应该叫做
+GLGraphicsFacadeState, 但是为统一简洁叫Impl, 目前我们只要一个窗口, 这个类设置为空类
+
+. Graphics目录下是引擎级别的图形抽象:
+Graphics/Renderer/RenderPath/Viewport/View/StaticModel/Terrain/Model/Material/Light...
+这里的Graphics是一个中间判断接口根据不同的API调用相应的实现函数
+
+GLGraphics文件没有定义类, 只是对Graphics类中特定图形API(这里是对OpenGL)的实现.
+
+. GraphicsAPI 包含了对通用图形API使用的数据结构的抽象, 例如: IndexBuffer, RenderSurface, Shader等
+而这些数据结构抽象中的特定API的接口在子目录下实现, 如: GraphicsAPI/OpenGL
+------------------------------------------------------------------------------------------------------------
+
+
+- Constructor_GL()
+------------------------------------------------------------------------------------------------------------
+.Graphics构造函数中调用Constructor_GL(), 这就是一个定义在Graphics文件在的特定图形相关API,他的实现在GLGraphics.cpp中
+
+.注意在Graphics中定义的特定图形API的函数都是私有的, 由Graphics类中提供的上层抽象对外开放调用.
+
+.为context添加RequireSDL(flags), 并在Constructor_GL调用, 为什么把他放到Context中实现, 应为RequireSDL(flags)这个动作,
+是引擎的需求, 无关GAPI, SDL的启动依赖与特定API 并不冲突, 即和 ". SDL的启动需要特定的图形API, 所以我们把代码放到GraphicsAPI/
+-OpenGL/GLGraphics.cpp中" 不冲突, 非常合理.
+------------------------------------------------------------------------------------------------------------

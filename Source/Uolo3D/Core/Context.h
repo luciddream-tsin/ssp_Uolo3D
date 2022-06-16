@@ -16,16 +16,23 @@ namespace Uolo3D {
     public:
         Context();
 
+        //---------------event related code---------------------
         void AddEventReceiver(Object *receiver, size_t eventType);
         vector<Object*> &GetReceiversGroup(size_t eventType){
             return eventReceiversMap_[eventType];
         };
-        void RegisterSubsystem(Object *object);
 
+
+
+        //---------------get/set subsystem----------------------
+        Object *RegisterSubsystem(Object *object);
         template<typename T>
         T* GetSubsystem(){
             return (T*)(subsystem_[T::GetTypeStatic()]).get();
         };
+
+        //---------------sdl related code-----------------------
+        bool RequireSDL(unsigned int sdlFlags);
 
 
 

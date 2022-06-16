@@ -18,8 +18,8 @@ void HelloWorld::Setup() {
     engineParameters_[EP_FULL_SCREEN].bool_ = false;
     engineParameters_[EP_LOG_LEVEL].int_ = LOG_DEBUG;
     engineParameters_[EP_WINDOW_POSITION_X].int_ = 800;
-    engineParameters_[EP_WINDOW_POSITION_Y].int_ = 500;
-    engineParameters_[EP_WINDOW_SIZE_W].int_ = 400;
+    engineParameters_[EP_WINDOW_POSITION_Y].int_ = 300;
+    engineParameters_[EP_WINDOW_SIZE_W].int_ = 600;
     engineParameters_[EP_WINDOW_SIZE_H].int_ = 320;
 
 }

@@ -24,7 +24,7 @@ namespace Uolo3D {
 
     protected:
         std::shared_ptr<Engine> engine_;
-        std::unordered_map<string, ep_type> engineParameters_;
+        std::unordered_map<string, params_union> engineParameters_;
     };
 }
 
