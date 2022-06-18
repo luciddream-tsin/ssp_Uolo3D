@@ -32,19 +32,30 @@ namespace Uolo3D {
         bool resultSetScreenMode = graphics->SetScreenMode(engineParameters);
         if (!resultSetScreenMode) return false;
 
-
-
-
-
         return true;
-
-
 
     }
 
     void Engine::RunFrame() {
 
+        Update();
+        Render();
+
         SendEvent(E_ENDFRAME);
+    }
+
+    void Engine::Update() {
+        UOLO3D_LOG_("Engine::Update()");
+
+    }
+
+    void Engine::Render() {
+        UOLO3D_LOG_("Engine::Render()");
+
+    }
+
+    void Engine::FrameLimit() {
+
     }
 
     bool Engine::IsExiting() {

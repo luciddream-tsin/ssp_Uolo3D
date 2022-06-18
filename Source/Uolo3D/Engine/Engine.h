@@ -24,6 +24,10 @@ namespace Uolo3D {
 
         void RunFrame();
         bool IsExiting();
+    private:
+        void Update();
+        void Render();
+        void FrameLimit();
 
     private:
         bool exiting_;

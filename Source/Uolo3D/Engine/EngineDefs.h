@@ -29,9 +29,9 @@ namespace Uolo3D {
         //注意, 复制的时候它会调用你实现的拷贝构造函数, 你不可以用如下函数来逃避
         //不然它调用你的函数但实际上社么都没有做, 结果是不确定的, 有可能它指向了临近的内存,
         //出现奇怪的(比如这次你没调用的打印函数, 函数内的字符串竟然被你当前的打印操作打印出来了...)
-        //params_union(){}
-        //params_union(const params_union &){};
-        //params_unionunion(){}
+        //params_union(){...}
+        //params_union(const params_union &){...};
+        //params_unionunion(){...}
 
         params_union(){
             int_ = -1;

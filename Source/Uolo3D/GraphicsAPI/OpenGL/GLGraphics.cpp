@@ -20,13 +20,9 @@ namespace Uolo3D{
     bool Graphics::SetScreenMode_GL(unordered_map<string, params_union> screenParameters) {
         //TODO: release OpenGL
 
-
-
         unsigned int flags = 0;
 
         //TODO: Comment fellow SDL_GL_* program.
-
-
 
         int x = screenParameters[EP_WINDOW_POSITION_X].int_;
         int y = screenParameters[EP_WINDOW_POSITION_Y].int_;
