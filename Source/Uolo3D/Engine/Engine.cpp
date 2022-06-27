@@ -38,10 +38,14 @@ namespace Uolo3D {
 
     void Engine::RunFrame() {
 
+        //time->BeginFrame();
+
         Update();
         Render();
 
-        SendEvent(E_ENDFRAME);
+        //time->EndFrame();
+
+        //SendEvent(E_ENDFRAME);
     }
 
     void Engine::Update() {

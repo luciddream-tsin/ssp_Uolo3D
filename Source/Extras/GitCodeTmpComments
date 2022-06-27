@@ -1,32 +1,148 @@
-// 添加SDL2库(先用Urho3D 自带的以后再改动), 启动一个窗口
-
-- 前言
-------------------------------------------------------------------------------------------------------------
-. 之前添加了Graphics和Renderer两个空类,我们现在只要处理Graphics让他启动一个SDL窗口
-
-. SDL的启动需要特定的图形API, 所以我们把代码放到GraphicsAPI/OpenGL/GLGraphics.cpp中
-
-. GLGraphicsImpl.h 中的GLGraphicsImpl类是对OpenGL这个状态机各个状态开关的抽象, 实际上它应该叫做
-GLGraphicsFacadeState, 但是为统一简洁叫Impl, 目前我们只要一个窗口, 这个类设置为空类
-
-. Graphics目录下是引擎级别的图形抽象:
-Graphics/Renderer/RenderPath/Viewport/View/StaticModel/Terrain/Model/Material/Light...
-这里的Graphics是一个中间判断接口根据不同的API调用相应的实现函数
-
-GLGraphics文件没有定义类, 只是对Graphics类中特定图形API(这里是对OpenGL)的实现.
-
-. GraphicsAPI 包含了对通用图形API使用的数据结构的抽象, 例如: IndexBuffer, RenderSurface, Shader等
-而这些数据结构抽象中的特定API的接口在子目录下实现, 如: GraphicsAPI/OpenGL
-------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
+有点renderpath中有rendertarget子节点, 比如deff， 有的没有比如forward, 分析原因区别
 
 
-- Constructor_GL()
-------------------------------------------------------------------------------------------------------------
-.Graphics构造函数中调用Constructor_GL(), 这就是一个定义在Graphics文件在的特定图形相关API,他的实现在GLGraphics.cpp中
 
-.注意在Graphics中定义的特定图形API的函数都是私有的, 由Graphics类中提供的上层抽象对外开放调用.
+当你遇到阻碍一定要思考它的本质是什么
+对于引擎的渲染管线, 本质无非就是对OpenGL的封装, 本质还是拿到场景顶点数据和shader然后提交渲染
+从Tick(或Update)入手能捋中间的引擎管线流程, 从场景加载和camera到渲染能找到起始点, 从draw call提交能得到结尾点.
 
-.为context添加RequireSDL(flags), 并在Constructor_GL调用, 为什么把他放到Context中实现, 应为RequireSDL(flags)这个动作,
-是引擎的需求, 无关GAPI, SDL的启动依赖与特定API 并不冲突, 即和 ". SDL的启动需要特定的图形API, 所以我们把代码放到GraphicsAPI/
--OpenGL/GLGraphics.cpp中" 不冲突, 非常合理.
-------------------------------------------------------------------------------------------------------------
+- 看了一段时间的Update渲染流程, 然后我们观察起始部分, 我们发现, "viewport的构造参数包含scene 和camera ", 从这里分析.
+    //----------------------------------------------------
+    auto* renderer = GetSubsystem<Renderer>();
+    // Set up a viewport to the Renderer subsystem so that the 3D scene can be seen
+    SharedPtr<Viewport> viewport(new Viewport(context_, scene_, cameraNode_->GetComponent<Camera>()));
+    renderer->SetViewport(0, viewport);
+
+- viewport 有scene camera 数据成员, 我们随之分析在哪并且如何使用它们的(我们的目的是找到场景数据如何进入渲染管线):
+- 从instancingBuffer 找到了BatchGroup::Draw() , （因为之前看到过instanceBuffer实际上是VertextBuffer）
+
+
+- viewport 还包含renderPath,  viewport 还包含rect_, view_ 它时数据的封装， 但是没有多少和渲染相关的操作函数|
+view类也
+
+
+
+1. Renderer 里包含, viewport 由用户程序自己分配, 可以分配多个, 引擎负责处理, 但是我们现在只支持一个.
+
+2. viewport 包含一个 view 对象, 在Render Update的时候调用：
+我们现在也不需要resetViews_ 功能.
+// (Re)allocate the view structure if necessary
+if (!viewport->GetView() || resetViews_)
+    viewport->AllocateView();
+
+3. bool View::Define(RenderSurface* renderTarget, Viewport* viewport)
+- 我们根据renderTarget尺寸去clamp viewport的尺寸, 得到view最终的尺寸
+- renderPath_ = viewport->GetRenderPath();
+- renderTarget_ = renderTarget;
+-
+
+4. Technique 包含 不同的passIndex, view也有一份, 通过Technique 获得, 其他的部分使用bool 标记：
+
+    deferred_ = false;
+    deferredAmbient_ = false;
+    useLitBase_ = false;
+    hasScenePasses_ = false;
+    noStencil_ = false;
+
+    //灯光命令
+    lightVolumeCommand_ = nullptr;
+    // 前向灯光命令
+    forwardLightsCommand_ = nullptr;
+
+    //这个是一个vector 包含 ScenePassInfo
+    scenePasses_.Clear();
+    //
+    geometriesUpdated_ = false;
+
+5. Renderer 的初始化
+- 默认材质, 默认renderPath, 默认LightRamp_ 默认LightSpot_;
+LightRamp_ 和LightSpot 的作用:
+
+
+在renderer 的初始化中加载默认path
+
+- 反复查看Renderer的成员变量.
+
+
+在Renderer的HandleRenderUpdate 中 Update viewports -> 再update view
+view update后再 renderer_->SetBatchShaders(newGroup, tech, allowShadows, queue);
+------------------------------------------------------------------------------------------
+
+以04 static scene 为例分析整个流程
+
+==> 目标 ： 梳理一个最小的必须的渲染相关的代码
+
+==> 使用默认的Forward RenderPath, 经过剔除, 只需要3个command即可渲染场景
+
+<renderpath>
+    <command type="clear" color="fog" depth="1.0" stencil="0" />
+    <command type="forwardlights" pass="light" />
+    <command type="scenepass" pass="postalpha" sort="backtofront" />
+</renderpath>
+
+
+
+场景里的material使用了diff和diffNormal 两个technique, 但是这两个technique里没有postalpha这个pass
+从源码看一下是干什么的
+
+
+
+
+
+
+找到摄像机的变换矩阵
+
+
+
+
+
+
+分析view::SetRenderTarget函数
+
+
+
+
+
+
+
+
+==> 执行每个command的时候, 都要调用一下view::SetRenderTargets这很合理.
+
+==> 找到哪里用到了clear这个命令
+
+在View里面执行RenderPath 命令
+
+void View::ExecuteRenderPathCommands()
+
+调用栈为:
+View::ExecuteRenderPathCommands
+View::Render
+Renderer::Render
+Engine::Render
+Engine::BeginFrame
+
+==> 场景顶点数据在哪加载, 在那提交:*****************************************
+兩個函數
+void View::PrepareInstancingBuffer()
+这里提交
+void BatchGroup::Draw(View* view, Camera* camera, bool allowDepthWrite)
+
+调用栈:
+BatchGroup::Draw()
+BatchQueue::Draw()
+View::ExecuteRenderPathCommands // 注意根据不同的command 决定后面的操作, 不一定调用Draw()
+View::Render
+Renderer::Render
+Engine::Render
+Engine::BeginFrame
+
+
+
+//--------------------------------------------------------------------
+过于一个command 是否是: actualView->IsNecessary(command)
+    return command.enabled_ && command.outputs_.Size() &&
+           //这个命令如果不是scenepass 他就是必须的 ， 或者， 它是scenepass 但是 它对应的 pass的batchQueue为空， 也就是说， 场景中没有包含该pass的材质的物体
+           (command.type_ != CMD_SCENEPASS || !batchQueues_[command.passIndex_].IsEmpty());
+
+

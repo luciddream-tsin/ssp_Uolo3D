@@ -1,0 +1,3 @@
+- GPUObject 有什么作用, 为什么继承它
+
+- void Renderer::Initialize() 里的    CreateInstancingBuffer(); 注释掉 04 一部分蘑菇显示不出来
