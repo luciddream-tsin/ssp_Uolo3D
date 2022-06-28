@@ -26,6 +26,22 @@ void HelloWorld::Setup() {
 
 void HelloWorld::Start() {
     UOLO3D_LOG_("Hello World Start Called.");
+
+    // create a scene
+
+    // create a child node of scene
+    // add a light component
+
+    // create a child node of scene
+    // add a static model component
+
+    // create a child node of scene
+    // add a camera component
+
+    // create a viewport (context, scene, camera)
+    // get renderer and set a viewport of it.
+
+
 }
 
 
