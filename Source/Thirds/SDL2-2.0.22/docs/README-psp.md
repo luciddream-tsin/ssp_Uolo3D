@@ -28,7 +28,7 @@ cmake --install build
 [Build Instructions](https://github.com/hrydgard/ppsspp/wiki/Build-instructions)
 
 
-## Compiling a HelloWorld
+## Compiling a Editor
 [PSP Hello World](https://psp-dev.org/doku.php?id=tutorial:hello_world)
 
 ## To Do

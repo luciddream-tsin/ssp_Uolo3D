@@ -34,7 +34,6 @@ namespace Uolo3D {
         //params_unionunion(){...}
 
         params_union(){
-            int_ = -1;
         }
         params_union(const params_union &t){
             memcpy(this, &t, sizeof(t));

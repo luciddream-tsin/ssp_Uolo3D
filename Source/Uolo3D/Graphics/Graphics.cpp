@@ -25,6 +25,8 @@ namespace Uolo3D{
         screenParameters[EP_WINDOW_POSITION_Y].int_ = engineParameters[EP_WINDOW_POSITION_Y].int_;
         screenParameters[EP_WINDOW_SIZE_W].int_ = engineParameters[EP_WINDOW_SIZE_W].int_;
         screenParameters[EP_WINDOW_SIZE_H].int_ = engineParameters[EP_WINDOW_SIZE_H].int_;
+        screenParameters[EP_FULL_SCREEN].bool_ = engineParameters[EP_FULL_SCREEN].bool_;
+        screenParameters[EP_OPENGL].bool_ = engineParameters[EP_OPENGL].bool_;
         return SetScreenMode_GL(screenParameters);
 
     }

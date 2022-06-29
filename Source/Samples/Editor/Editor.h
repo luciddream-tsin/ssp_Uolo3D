@@ -7,11 +7,11 @@
 
 #include "Engine/Application.h"
 using namespace Uolo3D;
-class HelloWorld :public Application{
-    UOLO3D_CLASS_INFO(HelloWorld, Application)
+class Editor : public Application{
+    UOLO3D_CLASS_INFO(Editor, Application)
 
 public:
-    HelloWorld(Context *context);
+    Editor(Context *context);
 
     void Setup() override;
     void Start() override;

@@ -4,13 +4,13 @@
 
 #include "Core/Context.h"
 #include "memory"
-#include "HelloWorld.h"
+#include "Editor.h"
 #include "IO/Log.h"
 
 using namespace Uolo3D;
 
 int main(){
     std::shared_ptr<Context> context {new Context()};
-    std::shared_ptr<HelloWorld> helloWorld{new HelloWorld(context.get())};
-    helloWorld->Run();
+    std::shared_ptr<Editor> editor{new Editor(context.get())};
+    editor->Run();
 }

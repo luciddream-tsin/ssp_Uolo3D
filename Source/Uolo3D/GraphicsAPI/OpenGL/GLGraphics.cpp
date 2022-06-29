@@ -30,8 +30,8 @@ namespace Uolo3D{
     bool Graphics::SetScreenMode_GL(unordered_map<string, params_union> screenParameters) {
         //TODO: release OpenGL
 
-        //
-        unsigned flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+        unsigned flags = SDL_WINDOW_SHOWN;
+
 
         //TODO: Comment fellow SDL_GL_* program.
 
@@ -40,18 +40,17 @@ namespace Uolo3D{
         int w = screenParameters[EP_WINDOW_SIZE_W].int_;
         int h = screenParameters[EP_WINDOW_SIZE_H].int_;
 
+        bool isFullScreen = screenParameters[EP_FULL_SCREEN].bool_;
+        if (isFullScreen)
+            flags |=  SDL_WINDOW_FULLSCREEN;
+
+        bool isOpenGL = screenParameters[EP_OPENGL].bool_;
+        if (isOpenGL)
+            flags |= SDL_WINDOW_OPENGL;
+
         window_ = SDL_CreateWindow("", x, y, w, h, flags);
 
-        //
-        if (true)
-        {
-            //Maximize();
-            SDL_GL_GetDrawableSize(window_, &w, &h);
-        }
-
-
         Restore_GL();
-
         return true;
     }
 
@@ -75,25 +74,29 @@ namespace Uolo3D{
             }
 
             // Create and bind a vertex array object that will stay in use throughout
-            unsigned vertexArrayObject;
-            glGenVertexArrays(1, &vertexArrayObject);
-            glBindVertexArray(vertexArrayObject);
+            // unsigned vertexArrayObject;
+            // glGenVertexArrays(1, &vertexArrayObject);
+            // glBindVertexArray(vertexArrayObject);
         }
 
     }
 
     void Graphics::Maximize() {
         if (!window_) return;
-
         SDL_MaximizeWindow(window_);
     }
 
 
     void Graphics::Update_GL() {
+
+        //tmp 临时的 SDL swap 测试 ------beg-------
         while (SDL_PollEvent(&event_)) {
             if (event_.type == SDL_QUIT) return;
         }
         SDL_GL_SwapWindow(window_);
+        //tmp 临时的 SDL swap 测试 ------end-------
+
+
 
     }
 }

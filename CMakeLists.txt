@@ -17,6 +17,6 @@ add_subdirectory(Source/Thirds/SDL2-2.0.22)
 include_directories(Source/Uolo3D)
 add_subdirectory(Source/Uolo3D)
 
-add_subdirectory(Source/Samples/HelloWorld)
+add_subdirectory(Source/Samples/Editor)
 
 
