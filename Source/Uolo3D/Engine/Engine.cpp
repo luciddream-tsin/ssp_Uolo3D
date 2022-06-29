@@ -6,6 +6,7 @@
 #include "Core/Context.h"
 #include "IO/Log.h"
 #include "Graphics/Graphics.h"
+#include "Graphics/Renderer.h"
 
 namespace Uolo3D {
     Engine::Engine(Context *context) : Object(context), exiting_(false){
@@ -20,6 +21,7 @@ namespace Uolo3D {
 
         GAPI gapi = engineParameters[EP_OPENGL].bool_ ? GAPI_OpenGL : GAPI_Aurora;
         Graphics *graphics = (Graphics *)context_->RegisterSubsystem(new Graphics(context_, gapi));
+        Renderer *renderer = (Renderer *)context_->RegisterSubsystem(new Renderer(context_));
 
         if (!graphics){
             UOLO3D_ERROE("Graphics Is NULL");
@@ -43,6 +45,8 @@ namespace Uolo3D {
         Update();
         Render();
 
+
+
         //time->EndFrame();
 
         //SendEvent(E_ENDFRAME);
@@ -50,12 +54,13 @@ namespace Uolo3D {
 
     void Engine::Update() {
         UOLO3D_LOG_("Engine::Update()");
+        context_->GetSubsystem<Graphics>()->Update();
 
     }
 
     void Engine::Render() {
         UOLO3D_LOG_("Engine::Render()");
-
+        context_->GetSubsystem<Renderer>()->Update();
     }
 
     void Engine::FrameLimit() {

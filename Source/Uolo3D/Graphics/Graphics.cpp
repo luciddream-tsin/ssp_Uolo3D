@@ -28,4 +28,8 @@ namespace Uolo3D{
         return SetScreenMode_GL(screenParameters);
 
     }
+
+    void Graphics::Update() {
+        Update_GL();
+    }
 }

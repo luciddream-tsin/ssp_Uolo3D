@@ -13,6 +13,7 @@ link_directories(${CMAKE_SOURCE_DIR}/Binaries)
 include_directories(Source/Thirds/SDL2-2.0.22/include)
 add_subdirectory(Source/Thirds/SDL2-2.0.22)
 
+
 include_directories(Source/Uolo3D)
 add_subdirectory(Source/Uolo3D)
 

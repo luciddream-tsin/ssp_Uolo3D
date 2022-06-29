@@ -3,15 +3,19 @@
 //
 
 #include "Core/Object.h"
+#include "GL/glew.h"
 
+using SDL_GLContext = void *;
 namespace Uolo3D {
-    class GraphicsImpl_GL : public Object {
-        UOLO3D_CLASS_INFO(GraphicsImpl_GL, Object)
+    class GraphicsImpl_GL{
+
+        friend class Graphics;
     public:
-        GraphicsImpl_GL() = delete;
-        GraphicsImpl_GL(Context *context): Object(context){
+        GraphicsImpl_GL(){
 
         }
 
+    private:
+        SDL_GLContext context_{};
     };
 }

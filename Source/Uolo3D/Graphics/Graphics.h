@@ -10,6 +10,7 @@
 #include "Engine/EngineDefs.h"
 #include "unordered_map"
 #include "SDL.h"
+#include "GraphicsAPI/OpenGL/GLGraphicsImpl.h"
 
 namespace Uolo3D {
 
@@ -26,6 +27,10 @@ namespace Uolo3D {
 
         bool SetScreenMode(unordered_map<string, params_union> engineParameters);
 
+        void Maximize();
+
+        void Update();
+
 
 
     private:
@@ -34,17 +39,31 @@ namespace Uolo3D {
         void Destructor_GL();
 
         bool SetScreenMode_GL(unordered_map<string, params_union> screenParameters);
+
+        void Restore_GL();
+
+        void Update_GL();
+
+        GraphicsImpl_GL* GetImpl_OGL() const
+        {
+            // assert(Graphics::Get == GAPI_OPENGL);
+            return static_cast<GraphicsImpl_GL*>(impl_);
+        }
 #endif
 
 
     private:
 
         static GAPI gapi_;
-        string apiName_;
+        string apiName_="";
 
-        void * impl_;
+        void * impl_{nullptr};
 
-        SDL_Window *window_;
+        SDL_Window *window_{nullptr};
+
+
+        //tmp
+        SDL_Event event_;
 
     };
 }
