@@ -41,6 +41,8 @@ namespace Uolo3D {
         bool SetScreenMode_GL(unordered_map<string, params_union> screenParameters);
 
         void Restore_GL();
+        void ResetRenderTarget_GL();
+        void SetViewport_GL();
 
         void Update_GL();
 

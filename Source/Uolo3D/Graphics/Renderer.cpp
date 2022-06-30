@@ -18,7 +18,7 @@ namespace Uolo3D{
         float b = rand() / 100000.0;
         float c = rand() / 100000.0;
         if (c < 0.01){
-            r =g =b = 255;
+            r = g = b = 255;
         }
         glClearColor(r , g, b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
