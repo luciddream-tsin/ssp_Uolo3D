@@ -31,7 +31,19 @@ namespace Uolo3D{
 
     }
 
-    void Graphics::Update() {
-        Update_GL();
+
+    void Graphics::BeginFrame() {
+
+    }
+
+    void Graphics::EndFrame() {
+
+        //tmp 临时的 SDL swap 测试 ------beg-------
+        while (SDL_PollEvent(&event_)) {
+            if (event_.type == SDL_QUIT) return;
+        }
+        SDL_GL_SwapWindow(window_);
+        //tmp 临时的 SDL swap 测试 ------end-------
+
     }
 }

@@ -22,6 +22,8 @@ namespace Uolo3D {
     class Graphics : public Object {
         UOLO3D_CLASS_INFO(Graphics, Object)
     public:
+        friend class Renderer;
+
         Graphics() = delete;
         Graphics(Context *context, GAPI gapi);
 
@@ -29,7 +31,8 @@ namespace Uolo3D {
 
         void Maximize();
 
-        void Update();
+        void BeginFrame();
+        void EndFrame();
 
 
 
@@ -37,14 +40,13 @@ namespace Uolo3D {
 #ifdef UOLO3D_GL
         void Constructor_GL();
         void Destructor_GL();
-
         bool SetScreenMode_GL(unordered_map<string, params_union> screenParameters);
 
         void Restore_GL();
         void ResetRenderTarget_GL();
         void SetViewport_GL();
 
-        void Update_GL();
+        void Draw_GL();
 
         GraphicsImpl_GL* GetImpl_OGL() const
         {

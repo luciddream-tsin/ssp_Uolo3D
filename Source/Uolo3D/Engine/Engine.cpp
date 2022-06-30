@@ -41,12 +41,8 @@ namespace Uolo3D {
     void Engine::RunFrame() {
 
         //time->BeginFrame();
-
         Update();
         Render();
-
-
-
         //time->EndFrame();
 
         //SendEvent(E_ENDFRAME);
@@ -54,13 +50,16 @@ namespace Uolo3D {
 
     void Engine::Update() {
         UOLO3D_LOG_("Engine::Update()");
-        context_->GetSubsystem<Graphics>()->Update();
+        Graphics *g = context_->GetSubsystem<Graphics>();
+        g->Draw_GL();
 
     }
 
     void Engine::Render() {
         UOLO3D_LOG_("Engine::Render()");
+        context_->GetSubsystem<Graphics>()->BeginFrame();
         context_->GetSubsystem<Renderer>()->Update();
+        context_->GetSubsystem<Graphics>()->EndFrame();
     }
 
     void Engine::FrameLimit() {

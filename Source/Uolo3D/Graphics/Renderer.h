@@ -10,6 +10,7 @@
 namespace Uolo3D{
     class Renderer : public Object{
     UOLO3D_CLASS_INFO(Renderer(), Object)
+
     public:
         Renderer(Context *context);
 

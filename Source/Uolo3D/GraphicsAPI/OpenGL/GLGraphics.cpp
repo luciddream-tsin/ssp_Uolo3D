@@ -86,17 +86,22 @@ namespace Uolo3D{
         SDL_MaximizeWindow(window_);
     }
 
+    void Graphics::Draw_GL() {
 
-    void Graphics::Update_GL() {
-
-        //tmp 临时的 SDL swap 测试 ------beg-------
-        while (SDL_PollEvent(&event_)) {
-            if (event_.type == SDL_QUIT) return;
+        //tmp 临时的 SDL swap 测试 -------beg----------
+        float r = rand() * 1.0 / RAND_MAX;
+        float g = rand() * 1.0 / RAND_MAX;
+        float b = rand() * 1.0 / RAND_MAX;
+        float c = rand() * 1.0 / RAND_MAX;
+        if (c < 0.5){
+            r = g = b = 255;
         }
-        SDL_GL_SwapWindow(window_);
-        //tmp 临时的 SDL swap 测试 ------end-------
+        glClearColor(r , g, b, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        //tmp 临时的 SDL swap 测试 -------end----------
 
 
 
     }
+
 }
