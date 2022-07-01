@@ -13,6 +13,7 @@
 
 namespace Uolo3D {
     class Scene;
+    class Camera;
     class Node : public Object{
         UOLO3D_CLASS_INFO(Node, Object)
     public:
@@ -23,8 +24,20 @@ namespace Uolo3D {
         void AddChild(Node *node);
         void SetID(unsigned id);
 
+        // NOTE: 模板函数的声明定义不能分离
         template<class T> T* CreateComponent(unsigned id = 0){
 
+        };
+
+        template<class T> T* GetComponent(){
+            int size = components_.size();
+            for (int i = 0; i < components_.size(); ++i) {
+                Component *component = components_[i].get();
+                if (component->GetType() == T::GetTypeStatic()){
+                    return static_cast<T*>(component);
+                }
+            }
+            return (Camera *)nullptr;
         };
         void AddComponent(Component *component);
 

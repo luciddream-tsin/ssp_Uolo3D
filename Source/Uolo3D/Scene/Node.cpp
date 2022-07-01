@@ -7,11 +7,14 @@
 namespace Uolo3D{
 
     Node::Node(Context *context) : Object(context){
+        components_.clear();
+        children_.clear();
 
     }
 
     Node *Node::CreateChild(std::string name, unsigned int id) {
 
+        return nullptr;
     }
 
     void Node::AddChild(Node *node) {

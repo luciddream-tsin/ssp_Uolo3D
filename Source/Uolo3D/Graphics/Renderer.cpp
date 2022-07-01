@@ -15,6 +15,9 @@ namespace Uolo3D{
 
     void Renderer::Update() {
         context_->GetSubsystem<Graphics>()->Draw_GL();
+    }
+
+    void Renderer::SetViewport(int index, Viewport *viewport) {
 
     }
 

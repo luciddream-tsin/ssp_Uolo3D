@@ -10,6 +10,10 @@
 #include "Graphics/StaticModel.h"
 #include "Graphics/Light.h"
 #include "Graphics/Camera.h"
+#include "Graphics/Viewport.h"
+#include "Graphics/Renderer.h"
+#include "Core/Context.h"
+
 
 Editor::Editor(Context *context): Application(context){
 
@@ -23,8 +27,8 @@ void Editor::Setup() {
     engineParameters_[EP_LOG_LEVEL].int_ = LOG_DEBUG;
     engineParameters_[EP_WINDOW_POSITION_X].int_ = 500;
     engineParameters_[EP_WINDOW_POSITION_Y].int_ = 200;
-    engineParameters_[EP_WINDOW_SIZE_W].int_ = 1200;
-    engineParameters_[EP_WINDOW_SIZE_H].int_ = 820;
+    engineParameters_[EP_WINDOW_SIZE_W].int_ = 800;
+    engineParameters_[EP_WINDOW_SIZE_H].int_ = 620;
 
 }
 
@@ -37,6 +41,12 @@ void Editor::Start() {
     // create a child node of scene
     // add a light component
     Node *lightNode = scene_->CreateChild("LightNode");
+    //assert(lightNode);
+
+    //-------------NULL pointer but not exit----------------beg--
+    // under windows mingw gnu 11.3.0. 回去使用Linux测试.
+    // lightNode->CreateChild("");
+    //------------------------------------------------------end--
     lightNode->CreateComponent<Light>();
 
     // create a child node of scene
@@ -53,6 +63,8 @@ void Editor::Start() {
     // create a viewport (context, scene, camera)
     // get renderer and set a viewport of it.
 
+    std::shared_ptr<Viewport> viewport(new Viewport(context_, scene_, cameraNode->GetComponent<Camera>()));
+    context_->GetSubsystem<Renderer>()->SetViewport(0, viewport.get());
 
 }
 

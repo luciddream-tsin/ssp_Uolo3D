@@ -50,8 +50,8 @@ namespace Uolo3D {
 
     void Engine::Update() {
         UOLO3D_LOG_("Engine::Update()");
-        Graphics *g = context_->GetSubsystem<Graphics>();
-        g->Draw();
+        Graphics *graphics = context_->GetSubsystem<Graphics>();
+        graphics->Draw();
 
     }
 

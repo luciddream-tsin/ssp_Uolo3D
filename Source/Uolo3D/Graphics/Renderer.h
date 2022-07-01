@@ -6,8 +6,10 @@
 #define UOLO3D_RENDERER_H
 
 #include "Core/Object.h"
+#include "vector"
 
 namespace Uolo3D{
+    class Viewport;
     class Renderer : public Object{
     UOLO3D_CLASS_INFO(Renderer(), Object)
 
@@ -16,7 +18,11 @@ namespace Uolo3D{
 
         void Update();
 
+        void SetViewport(int index, Viewport *viewport);
 
+    private:
+
+        std::vector<std::shared_ptr<Viewport>> viewports_;
     };
 }
 

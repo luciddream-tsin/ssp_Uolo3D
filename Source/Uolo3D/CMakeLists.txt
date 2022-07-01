@@ -15,6 +15,7 @@ set(UoloSources
         Graphics/StaticModel.cpp
         Graphics/Light.cpp
         Graphics/Camera.cpp
+        Graphics/Viewport.cpp
 
         GraphicsAPI/OpenGL/GLGraphics.cpp
         GraphicsAPI/OpenGL/GLGraphicsImpl.h
