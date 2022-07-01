@@ -6,6 +6,8 @@
 #define SSP_UOLO3D_HELLOWORLD_H
 
 #include "Engine/Application.h"
+#include "Scene/Scene.h"
+
 using namespace Uolo3D;
 class Editor : public Application{
     UOLO3D_CLASS_INFO(Editor, Application)
@@ -17,6 +19,10 @@ public:
     void Start() override;
 
     void Exit() override;
+
+
+private:
+    std::shared_ptr<Scene> scene_;
 
 
 };

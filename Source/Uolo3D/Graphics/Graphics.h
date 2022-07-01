@@ -32,11 +32,11 @@ namespace Uolo3D {
         void Maximize();
 
         void BeginFrame();
+        void Draw();
         void EndFrame();
 
-
-
     private:
+
 #ifdef UOLO3D_GL
         void Constructor_GL();
         void Destructor_GL();

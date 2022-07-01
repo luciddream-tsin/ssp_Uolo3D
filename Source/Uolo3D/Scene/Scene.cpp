@@ -3,3 +3,10 @@
 //
 
 #include "Scene.h"
+namespace Uolo3D{
+    Scene::Scene(Context *context) : Node(context) {
+
+    }
+
+
+}

@@ -36,6 +36,10 @@ namespace Uolo3D{
 
     }
 
+    void Graphics::Draw() {
+        Draw_GL();
+    }
+
     void Graphics::EndFrame() {
 
         //tmp 临时的 SDL swap 测试 ------beg-------

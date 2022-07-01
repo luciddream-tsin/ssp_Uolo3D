@@ -2,10 +2,14 @@
 // Created by Administrator on 2022/6/13.
 //
 
+
 #include "Editor.h"
 #include "IO/Log.h"
 #include "Engine/EngineDefs.h"
 #include "iostream"
+#include "Graphics/StaticModel.h"
+#include "Graphics/Light.h"
+#include "Graphics/Camera.h"
 
 Editor::Editor(Context *context): Application(context){
 
@@ -28,15 +32,23 @@ void Editor::Start() {
     UOLO3D_LOG_("Hello World Start Called.");
 
     // create a scene
+    scene_.reset(new Scene(context_));
 
     // create a child node of scene
     // add a light component
+    Node *lightNode = scene_->CreateChild("LightNode");
+    lightNode->CreateComponent<Light>();
 
     // create a child node of scene
     // add a static model component
+    Node *cubeNode = scene_->CreateChild("CubeNode");
+    cubeNode->CreateComponent<StaticModel>();
+
 
     // create a child node of scene
     // add a camera component
+    Node *cameraNode = scene_->CreateChild("cameraNode");
+    cameraNode->CreateComponent<Camera>();
 
     // create a viewport (context, scene, camera)
     // get renderer and set a viewport of it.
