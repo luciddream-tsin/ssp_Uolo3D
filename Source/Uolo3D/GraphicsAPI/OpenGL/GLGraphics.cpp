@@ -92,10 +92,6 @@ namespace Uolo3D{
         float r = rand() * 1.0 / RAND_MAX;
         float g = rand() * 1.0 / RAND_MAX;
         float b = rand() * 1.0 / RAND_MAX;
-        float c = rand() * 1.0 / RAND_MAX;
-        if (c < 0.5){
-            r = g = b = 255;
-        }
         glClearColor(r , g, b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         //tmp 临时的 SDL swap 测试 -------end----------

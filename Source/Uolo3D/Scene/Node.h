@@ -18,11 +18,15 @@ namespace Uolo3D {
         UOLO3D_CLASS_INFO(Node, Object)
     public:
         Node() = delete;
-        Node(Context *context);
+        Node(Context *context, std::string name);
 
         Node *CreateChild(std::string name, unsigned id = 0);
         void AddChild(Node *node);
-        void SetID(unsigned id);
+        bool SetID(unsigned id);
+        Node *GetNode(unsigned id);
+        unsigned GetFreeNodeID();
+
+
 
         // NOTE: 模板函数的声明定义不能分离
         template<class T> T* CreateComponent(unsigned id = 0){
@@ -30,6 +34,7 @@ namespace Uolo3D {
         };
 
         template<class T> T* GetComponent(){
+            assert(this);
             int size = components_.size();
             for (int i = 0; i < components_.size(); ++i) {
                 Component *component = components_[i].get();
@@ -41,9 +46,12 @@ namespace Uolo3D {
         };
         void AddComponent(Component *component);
 
-    private:
-        Node *parent_;
+    protected:
         Scene *scene_;
+
+    private:
+        std::string name_;
+        Node *parent_;
         unsigned id_;
 
         std::vector<std::shared_ptr<Node>> children_;

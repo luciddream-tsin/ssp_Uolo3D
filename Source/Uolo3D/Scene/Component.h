@@ -8,6 +8,10 @@
 
 namespace Uolo3D {
 
+    //组件分为可绘制和不可绘制, 例如继承模型
+    //Component <- Drawable <- StaticModel
+    //Component <- Drawable <- Light
+    //Component <- Camera
 
     class Component : public Object{
         UOLO3D_CLASS_INFO(Component, Object)

@@ -7,12 +7,14 @@
 #include "IO/Log.h"
 #include "Graphics/Graphics.h"
 #include "Graphics/Renderer.h"
+#include "Core/Timer.h"
 
 namespace Uolo3D {
-    Engine::Engine(Context *context) : Object(context), exiting_(false){
+    Engine::Engine(Context *context) : Object(context), exiting_(false), maxFPS_(2), frameTimer_(){
         //TODO:  检测开始关闭Log时, 使用UOLO3D_INFO等是否合法
 
         context_->RegisterSubsystem(new Log(context_));
+        context_->RegisterSubsystem(new Time(context_));
     }
 
     bool Engine::Initialize(unordered_map<string, params_union> engineParameters) {
@@ -40,10 +42,15 @@ namespace Uolo3D {
 
     void Engine::RunFrame() {
 
-        //time->BeginFrame();
+        Time *time = context_->GetSubsystem<Time>();
+
+        time->BeginFrame();
+
         Update();
         Render();
-        //time->EndFrame();
+        FrameLimit();
+
+        time->EndFrame();
 
         //SendEvent(E_ENDFRAME);
     }
@@ -63,7 +70,22 @@ namespace Uolo3D {
     }
 
     void Engine::FrameLimit() {
+        long long maxUSPF = 1000000LL / maxFPS_; //us per frame, USPF
 
+        while(maxUSPF >= frameTimer_.GetUSec(false)){
+
+            // 如果帧率太小, 直接使用线程睡眠, 而不是在while里空轮
+            // Note: 当第一次进入while时, trialSleepTime 最大, 如果第一次都没有sleep 以后不可能sleep
+            long long trialSleepTime = maxUSPF - frameTimer_.GetUSec(false);
+            if (trialSleepTime >= 1000LL){
+                UOLO3D_LOG_("sleep");
+                auto sleepTime = (unsigned)(trialSleepTime / 1000LL);
+                Time::Sleep(sleepTime);
+            }
+        }
+
+        frameTimer_.Reset();
+        UOLO3D_LOG_("end: " + to_string(frameTimer_.GetUSec(false)));
     }
 
     bool Engine::IsExiting() {

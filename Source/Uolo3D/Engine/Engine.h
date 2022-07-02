@@ -7,6 +7,7 @@
 #include "Core/Object.h"
 #include "unordered_map"
 #include "EngineDefs.h"
+#include "Core/Timer.h"
 
 
 namespace Uolo3D {
@@ -31,7 +32,8 @@ namespace Uolo3D {
 
     private:
         bool exiting_;
-
+        unsigned maxFPS_;
+        HiresTimer frameTimer_;
     };
 }
 

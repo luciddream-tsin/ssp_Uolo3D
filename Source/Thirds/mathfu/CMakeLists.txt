@@ -25,8 +25,8 @@ set_common_build_variables()
 # To configure MathFu flags per build target, see the
 # mathfu_configure_flags() function.
 option(mathfu_enable_simd "Use SIMD implementations when available." ON)
-option(mathfu_build_benchmarks "Build MathFu benchmarks." ON)
-option(mathfu_build_tests "Build MathFu unit tests." ON)
+option(mathfu_build_benchmarks "Build MathFu benchmarks." OFF)
+option(mathfu_build_tests "Build MathFu unit tests." OFF)
 
 # Save the mathfu directory, store this in the cache so that it's globally
 # accessible from mathfu_configure_flags().

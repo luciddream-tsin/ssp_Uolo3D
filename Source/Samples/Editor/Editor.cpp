@@ -36,28 +36,30 @@ void Editor::Start() {
     UOLO3D_LOG_("Hello World Start Called.");
 
     // create a scene
-    scene_.reset(new Scene(context_));
+    scene_.reset(new Scene(context_, "EditorScene"));
 
     // create a child node of scene
     // add a light component
     Node *lightNode = scene_->CreateChild("LightNode");
-    //assert(lightNode);
+    assert(lightNode);
 
     //-------------NULL pointer but not exit----------------beg--
-    // under windows mingw gnu 11.3.0. 回去使用Linux测试.
-    // lightNode->CreateChild("");
+    // 回忆深度探索C++对象模型, 多用assert, 该宏只在debug模式下生效.
+    // c++ 底层将函数编译成面相过程的语言, 调用成员函数默认传入第一个参数 this
     //------------------------------------------------------end--
     lightNode->CreateComponent<Light>();
 
     // create a child node of scene
     // add a static model component
     Node *cubeNode = scene_->CreateChild("CubeNode");
+    assert(cubeNode);
     cubeNode->CreateComponent<StaticModel>();
 
 
     // create a child node of scene
     // add a camera component
     Node *cameraNode = scene_->CreateChild("cameraNode");
+    assert(cameraNode);
     cameraNode->CreateComponent<Camera>();
 
     // create a viewport (context, scene, camera)

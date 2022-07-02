@@ -4,8 +4,8 @@
 
 #include "Scene.h"
 namespace Uolo3D{
-    Scene::Scene(Context *context) : Node(context) {
-
+    Scene::Scene(Context *context, std::string name) : Node(context, name) {
+        scene_ = this;
     }
 
 
