@@ -10,7 +10,7 @@
 #include "Core/Timer.h"
 
 namespace Uolo3D {
-    Engine::Engine(Context *context) : Object(context), exiting_(false), maxFPS_(2), frameTimer_(){
+    Engine::Engine(Context *context) : Object(context), exiting_(false), maxFPS_(3), frameTimer_(){
         //TODO:  检测开始关闭Log时, 使用UOLO3D_INFO等是否合法
 
         context_->RegisterSubsystem(new Log(context_));
@@ -75,14 +75,12 @@ namespace Uolo3D {
             // Note: 当第一次进入while时, trialSleepTime 最大, 如果第一次都没有sleep 以后不可能sleep
             long long trialSleepTime = maxUSPF - frameTimer_.GetUSec(false);
             if (trialSleepTime >= 1000LL){
-                UOLO3D_LOG_("sleep");
                 auto sleepTime = (unsigned)(trialSleepTime / 1000LL);
                 Time::Sleep(sleepTime);
             }
         }
 
         frameTimer_.Reset();
-        UOLO3D_LOG_("end: " + to_string(frameTimer_.GetUSec(false)));
     }
 
     bool Engine::IsExiting() {

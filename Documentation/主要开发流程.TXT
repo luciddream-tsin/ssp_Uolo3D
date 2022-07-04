@@ -3,19 +3,16 @@
 添加了Graphics类, 并在GLGraphics实现GL相关API 的接口, 启动SDL 窗口.
 
 // --------------
-首先实现双缓冲交换, 把窗口填上颜色确保绘制正常
-已完成
+首先实现双缓冲交换, 把窗口填上颜色确保绘制正常, 已完成
 整理, 逻辑:
 
+// --------------
+设置帧率, 已完成
 
-
-
---> 当前提交标记##################################################################################
+// --------------
+- 添加Scene类, 发现Scene继承Node, 添加Node 类, 目前这个简单的场景, Scene只有从Node继承来的CreateComponent和
+CreateChild方法, 在添加一些CreateComponent的方法, 和一些基本的Component,  已完成
 
 // --------------
 经过对渲染流程代码和场景等代码浏览, 现在从Main->Application->Scene->Octree->LoadModel->AddCamera->SetViewport
 这样按执行流程来一步一步添加代码.
-
-// --------------
-- 添加Scene类, 发现Scene继承Node, 添加Node 类, 目前这个简单的cube场景, scene只有从Node继承来的CreateComponent和
-CreateChild方法.

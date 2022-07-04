@@ -96,8 +96,6 @@ namespace Uolo3D{
         glClear(GL_COLOR_BUFFER_BIT);
         //tmp 临时的 SDL swap 测试 -------end----------
 
-
-
     }
 
 }

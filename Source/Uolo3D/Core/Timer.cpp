@@ -47,8 +47,6 @@ namespace Uolo3D{
     long long HiresTimer::GetUSec(bool reset) {
 
         long long currentTime = HiresTick();
-        UOLO3D_LOG_("start"+ to_string(startTime_));
-        UOLO3D_LOG_("cutte"+ to_string(currentTime));
         long long elapsedTime = currentTime - startTime_;
         if (reset) startTime_ = currentTime;
 
