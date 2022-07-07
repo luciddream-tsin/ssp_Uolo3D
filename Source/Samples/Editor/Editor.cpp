@@ -38,33 +38,29 @@ void Editor::Start() {
     // create a scene
     scene_.reset(new Scene(context_, "EditorScene"));
 
-    // create a child node of scene
-    // add a light component
-    Node *lightNode = scene_->CreateChild("LightNode");
-    assert(lightNode);
-
     //-------------NULL pointer but not exit----------------beg--
     // 回忆深度探索C++对象模型, 多用assert, 该宏只在debug模式下生效.
     // c++ 底层将函数编译成面相过程的语言, 调用成员函数默认传入第一个参数 this
     //------------------------------------------------------end--
+
+    //--------------light----------------------------------------
+    Node *lightNode = scene_->CreateChild("LightNode");
+    assert(lightNode);
     lightNode->CreateComponent<Light>();
 
-    // create a child node of scene
-    // add a static model component
+    //--------------static model----------------------------------
     Node *cubeNode = scene_->CreateChild("CubeNode");
     assert(cubeNode);
-    cubeNode->CreateComponent<StaticModel>();
+    StaticModel *cubeModel = cubeNode->CreateComponent<StaticModel>();
+    cubeModel->LoadModelResource("../Content/CoreData/Models/Box.mdl");
+    cubeModel->LoadMaterialResource("../Content/CoreData/Materials/Stone.xml");
 
-
-    // create a child node of scene
-    // add a camera component
+    //--------------camera----------------------------------------
     Node *cameraNode = scene_->CreateChild("cameraNode");
     assert(cameraNode);
     cameraNode->CreateComponent<Camera>();
 
-    // create a viewport (context, scene, camera)
-    // get renderer and set a viewport of it.
-
+    //--------------viewport---------------------------------------
     std::shared_ptr<Viewport> viewport(new Viewport(context_, scene_, cameraNode->GetComponent<Camera>()));
     context_->GetSubsystem<Renderer>()->SetViewport(0, viewport.get());
 

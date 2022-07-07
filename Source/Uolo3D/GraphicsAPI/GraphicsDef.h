@@ -11,4 +11,9 @@ enum GAPI{
     GAPI_Vulkan
 };
 
+enum TextureUnit{
+    TU_DIFFUSE = 0,
+    TU_NORMAL = 1
+};
+
 #endif //UOLO3D_GRAPHICSDEF_H

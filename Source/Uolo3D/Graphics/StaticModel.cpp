@@ -10,5 +10,13 @@ namespace Uolo3D{
 
     }
 
+    void StaticModel::LoadModelResource(std::string fileName) {
+
+    }
+
+    void StaticModel::LoadMaterialResource(std::string fileName) {
+
+    }
+
 
 }

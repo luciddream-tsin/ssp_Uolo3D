@@ -19,14 +19,14 @@ namespace Uolo3D {
     public:
         ClassInfo(const string name, const ClassInfo *baseClassInfo);
 
-        bool IsClassOf(size_t typeHash)const;
+        bool IsClassOf(strHash typeHash)const;
 
-        size_t GetType() const{return typeHash_;}
+        strHash GetType() const{return typeHash_;}
         const string& GetTypeName() const{return typeName_;}
         const ClassInfo *GetBaseClassInfo() const{return baseClassInfo_;}
 
     private:
-        size_t typeHash_;
+        strHash typeHash_;
         string typeName_;
 
         const ClassInfo *baseClassInfo_;
@@ -59,12 +59,12 @@ static const Uolo3D::ClassInfo *GetClassInfoStatic(){                           
     return &classInfo;                                                                                         \
 }                                                                                                              \
                                                                                                                \
-static size_t GetTypeStatic() {return GetClassInfoStatic()->GetType();}                                       \
+static strHash GetTypeStatic() {return GetClassInfoStatic()->GetType();}                                       \
 static const string &GetTypeNameStatic() {return GetClassInfoStatic()->GetTypeName();}                         \
                                                                                                                \
-virtual size_t GetType() const override {return GetClassInfoStatic()->GetType();}                              \
+virtual strHash GetType() const override {return GetClassInfoStatic()->GetType();}                              \
 virtual const string &GetTypeName() const override {return GetClassInfoStatic()->GetTypeName();}               \
-virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStatic()->IsClassOf(typeHash);}     \
+virtual bool IsClassOf(strHash typeHash) const override {return GetClassInfoStatic()->IsClassOf(typeHash);}     \
 //--------------------------------------------------------------------------------------------------------------------
 
 
@@ -84,24 +84,22 @@ virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStati
         //同时, 结合ClassInfo::IsClassOf实现, 可以表示回溯继承结构的终点.
         static const ClassInfo *GetClassInfoStatic(){return nullptr;}
 
-        virtual size_t GetType() const = 0;
+        virtual strHash GetType() const = 0;
         virtual const string& GetTypeName() const = 0;
-        virtual bool IsClassOf(size_t typeHash) const = 0;
+        virtual bool IsClassOf(strHash typeHash) const = 0;
         //-----------------------------------ClassInfo 相关设计 end  -----------
 
 
 
         //--------------------------------------------------------------------
-        void SubscribeToEvent(size_t eventType, EventHandler *eventHandler);
-        void SendEvent(size_t eventType);
-        void OnEvent(size_t eventType);
+        void SubscribeToEvent(strHash eventType, EventHandler *eventHandler);
+        void SendEvent(strHash eventType);
+        void OnEvent(strHash eventType);
 
     protected:
         Context *context_;
         std::list<std::shared_ptr<EventHandler>> eventHandlers_;
     };
-
-
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -122,12 +120,6 @@ virtual bool IsClassOf(size_t typeHash) const override {return GetClassInfoStati
         size_t eventType_;
         std::function<void(size_t)> handler_;
     };
-
-
-
-
-
-
 
 
 }
