@@ -7,6 +7,7 @@
 
 #define UOLO3D_GL
 #define UOLO3D_VK
+#include "cstring"
 
 typedef size_t strHash;
 

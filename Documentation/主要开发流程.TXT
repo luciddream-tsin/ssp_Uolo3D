@@ -1,4 +1,8 @@
 // --------------
+实现几个比如 Object基类和Application 等基础继承结构
+
+
+// --------------
 实现了基本的事件系统, 添加了几个空类, 在Engine空轮 Update(游戏逻辑) 和 Render(渲染逻辑),
 添加了Graphics类, 并在GLGraphics实现GL相关API 的接口, 启动SDL 窗口.
 
