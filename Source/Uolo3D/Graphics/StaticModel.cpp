@@ -112,14 +112,16 @@ namespace Uolo3D{
         UMDL[4] = '\0';
         assert(std::string(UMDL) == "UMDL");// not support UMDL2.
 
+        //---------------------vertex buffer------------beg-------------------------
         //read uint : Number of vertex buffers
-        unsigned int numVertexBuffer;
-        modelFile.read((char*)&numVertexBuffer, sizeof numVertexBuffer);
+        uint32_t numVertexBuffer;
+        modelFile.read((char*)&numVertexBuffer, sizeof(numVertexBuffer));
         UOLO3D_INFO("num of vertex buffer : "+to_string(numVertexBuffer));
 
         //现阶段不考虑一个mdl里含有多个几何， 多个vertex buffer
         assert(numVertexBuffer == 1);
-
+        //预先分配 capacity, 后面还是使用push_back推入.
+        vertexBuffers_.reserve(numVertexBuffer);
         for (int iterVB = 0; iterVB < numVertexBuffer; ++iterVB) {
             uint32_t vertexCount = 0;
             uint32_t vertexElementMask = 0;
@@ -139,16 +141,44 @@ namespace Uolo3D{
             modelFile.read((char*)&tmp_2, sizeof(uint32_t));
 
             //读取原始buffer, 并构造vertex buffer, 添加到模型vector中.
-            shared_ptr<VertexBuffer> vertexBuffer(new VertexBuffer(context_));
+            VertexBuffer *vertexBuffer = new VertexBuffer(context_);
             unsigned char *buffer = new unsigned char [vertexBufferSize];
             modelFile.read((char*)buffer, vertexBufferSize);
 
             vertexBuffer->SetSize(vertexCount, vertexElements);
             vertexBuffer->ResetBuffer(buffer);
-            vertexBuffers_.push_back(vertexBuffer);
+            vertexBuffers_.emplace_back(vertexBuffer);
         }
 
         assert(vertexBuffers_.size() == numVertexBuffer);
+        //---------------------vertex buffer------------end-------------------------
+
+        //---------------------index  buffer------------beg-------------------------
+        uint32_t numIndexBuffer = 0;
+        modelFile.read((char*)&numIndexBuffer, sizeof(numIndexBuffer));
+        UOLO3D_INFO("num of index buffer : "+to_string(numIndexBuffer));
+        assert(numIndexBuffer == 1);
+
+        indexBuffers_.reserve(numIndexBuffer);
+        for (int iterIB = 0; iterIB < numIndexBuffer; ++iterIB) {
+            uint32_t indexCount = 0;
+            uint32_t indexSize = 0;
+            modelFile.read((char*)&indexCount, 4);
+            modelFile.read((char*)&indexSize, 4);
+            assert(indexCount != 0);
+            assert(indexSize == 2 || indexSize == 4);//2 for 16-bit indices, 4 for 32-bit.
+
+            IndexBuffer *indexBuffer = new IndexBuffer(context_);
+            uint32_t indexBufferSize = indexCount * indexSize;
+            indexBuffer->Re
+
+
+            indexBuffers_.emplace_back(indexBuffer);
+        }
+
+
+        //---------------------index  buffer------------end-------------------------
+
 
     }
 
