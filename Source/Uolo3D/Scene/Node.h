@@ -30,11 +30,11 @@ namespace Uolo3D {
 
         // NOTE: 模板函数的声明定义不能分离
         template<class T> T* CreateComponent(unsigned id = 0){
-
+            components_.emplace_back(new T(context_));
+            return (T*)components_.back().get();
         };
 
         template<class T> T* GetComponent(){
-            assert(this);
             int size = components_.size();
             for (int i = 0; i < components_.size(); ++i) {
                 Component *component = components_[i].get();
@@ -42,7 +42,7 @@ namespace Uolo3D {
                     return static_cast<T*>(component);
                 }
             }
-            return (Camera *)nullptr;
+            return (T*)nullptr;
         };
         void AddComponent(Component *component);
 

@@ -58,7 +58,7 @@ void Editor::Start() {
     //--------------camera----------------------------------------
     Node *cameraNode = scene_->CreateChild("cameraNode");
     assert(cameraNode);
-    cameraNode->CreateComponent<Camera>();
+    Camera *camera = cameraNode->CreateComponent<Camera>();
 
     //--------------viewport---------------------------------------
     std::shared_ptr<Viewport> viewport(new Viewport(context_, scene_, cameraNode->GetComponent<Camera>()));

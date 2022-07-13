@@ -23,6 +23,7 @@ namespace Uolo3D {
     public:
         Log(Context *context);
 
+        //TODO: 添加打印时Log的文件具体位置
         static void Write(int level, const std::string& message);
         static void Write(const std::string& message);
 

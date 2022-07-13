@@ -8,6 +8,11 @@
 
 #include "Drawable.h"
 #include "Model.h"
+#include "GraphicsAPI/VertexBuffer.h"
+#include "GraphicsAPI/IndexBuffer.h"
+#include "Geometry.h"
+#include "mathfu/vector.h"
+#include "vector"
 
 namespace Uolo3D {
     class StaticModel : public Drawable{
@@ -15,7 +20,6 @@ namespace Uolo3D {
     public:
         StaticModel() = delete;
         StaticModel(Context *context);
-
 
         //-------------------------------------------------------------
         //暂时不添加SetModel(ResourceCache<Model>->GetResource())这个API ,
@@ -25,10 +29,14 @@ namespace Uolo3D {
         void LoadMaterialResource(std::string fileName);
         //-------------------------------------------------------------
 
-
     private:
-        std::shared_ptr<Model> model_;
+        //TODO: 检测有没有使用原则: shared_ptr不share, weak_ptr不weak
+        //geometries_不是二维vector, 因为现在不支持LOD
+        vector<shared_ptr<VertexBuffer>> vertexBuffers_;
+        vector<shared_ptr<IndexBuffer>> indexBuffers_;
+        vector<shared_ptr<Geometry>> geometries_;
 
+        vector<mathfu::Vector<int, 3>> geometryCenters_;
 
     };
 }
