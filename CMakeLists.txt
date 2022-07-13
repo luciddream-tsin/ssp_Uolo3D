@@ -21,6 +21,6 @@ add_subdirectory(Source/Thirds/mathfu)
 include_directories(Source/Uolo3D)
 add_subdirectory(Source/Uolo3D)
 
-add_subdirectory(Source/Samples/Editor)
+add_subdirectory(Source/Editor)
 
 

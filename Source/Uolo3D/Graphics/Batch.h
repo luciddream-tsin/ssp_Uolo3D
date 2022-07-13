@@ -1,28 +1,14 @@
 //
-// Created by Administrator on 2022/7/12.
+// Created by tsin on 22-7-11.
 //
 
 #ifndef UOLO3D_BATCH_H
 #define UOLO3D_BATCH_H
 
-namespace Uolo3D {
 
-    struct Batch{
+class Batch {
 
-    };
-
-    struct noneLitBatchQueue{
-
-    };
-
-    struct usedLitBatchQueue{
-
-    };
-
-
-}
-
-
+};
 
 
 #endif //UOLO3D_BATCH_H

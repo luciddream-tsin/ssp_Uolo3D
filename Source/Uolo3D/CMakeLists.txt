@@ -38,6 +38,10 @@ set(UoloSources
         GraphicsAPI/VertexBuffer.cpp
         GraphicsAPI/GraphicsDef.cpp
 
+        #----------Math----------
+        Math/BoundingBox.cpp
+
+
         #----------Resource------
         Resource/TmpResource.cpp
 
@@ -49,7 +53,7 @@ set(UoloSources
 add_library(Uolo3D ${UoloSources})
 
 #windows mingw
-target_link_libraries(Uolo3D glew32 opengl32 SDL2d)
+#target_link_libraries(Uolo3D glew32 opengl32 SDL2d)
 
 #linux
-#target_link_libraries(Uolo3D GL SDL2-2.0d GLEW)
+target_link_libraries(Uolo3D GL SDL2-2.0d GLEW)

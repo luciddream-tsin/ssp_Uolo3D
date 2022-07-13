@@ -14,7 +14,6 @@ namespace Uolo3D{
 
         Setup();
         engine_->Initialize(engineParameters_);
-
         Start();
 
         while (!engine_->IsExiting())

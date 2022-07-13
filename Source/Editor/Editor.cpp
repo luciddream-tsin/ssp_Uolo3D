@@ -33,6 +33,7 @@ void Editor::Setup() {
 }
 
 void Editor::Start() {
+
     UOLO3D_LOG_("Hello World Start Called.");
 
     // create a scene

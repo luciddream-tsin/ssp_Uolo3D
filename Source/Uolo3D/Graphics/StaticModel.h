@@ -13,6 +13,7 @@
 #include "Geometry.h"
 #include "mathfu/vector.h"
 #include "vector"
+#include "Math/BoundingBox.h"
 
 namespace Uolo3D {
     class StaticModel : public Drawable{
@@ -31,12 +32,14 @@ namespace Uolo3D {
 
     private:
         //TODO: 检测有没有使用原则: shared_ptr不share, weak_ptr不weak
-        //geometries_不是二维vector, 因为现在不支持LOD
+        //geometries_不是二维vector, 因为现在不支持LOD, 只取LOD_0
         vector<shared_ptr<VertexBuffer>> vertexBuffers_;
         vector<shared_ptr<IndexBuffer>> indexBuffers_;
         vector<shared_ptr<Geometry>> geometries_;
 
-        vector<mathfu::Vector<int, 3>> geometryCenters_;
+        vector<vf3> geometryCenters_;
+
+        BoundingBox boundingBox_;
 
     };
 }

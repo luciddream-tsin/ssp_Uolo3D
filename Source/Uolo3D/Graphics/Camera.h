@@ -18,5 +18,4 @@ namespace Uolo3D {
     };
 }
 
-
 #endif //UOLO3D_CAMERA_H
