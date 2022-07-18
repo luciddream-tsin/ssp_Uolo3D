@@ -136,7 +136,7 @@
 /// To use this build option, this macro <b>must</b> be defined in all modules
 /// of the project.
 /// @see MATHFU_COMPILE_FORCE_PADDING
-#define MATHFU_COMPILE_WITH_PADDING
+//#define MATHFU_COMPILE_WITH_PADDING
 /// @}
 #if defined(MATHFU_COMPILE_FORCE_PADDING)
 #if MATHFU_COMPILE_FORCE_PADDING == 1

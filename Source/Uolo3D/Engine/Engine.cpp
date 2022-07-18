@@ -10,7 +10,7 @@
 #include "Core/Timer.h"
 
 namespace Uolo3D {
-    Engine::Engine(Context *context) : Object(context), exiting_(false), maxFPS_(3), frameTimer_(){
+    Engine::Engine(Context *context) : Object(context), exiting_(false), maxFPS_(8), frameTimer_(){
         //TODO:  检测开始关闭Log时, 使用UOLO3D_INFO等是否合法
 
         context_->RegisterSubsystem(new Log(context_));

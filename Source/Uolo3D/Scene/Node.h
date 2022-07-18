@@ -27,7 +27,6 @@ namespace Uolo3D {
         unsigned GetFreeNodeID();
 
 
-
         // NOTE: 模板函数的声明定义不能分离
         template<class T> T* CreateComponent(unsigned id = 0){
             components_.emplace_back(new T(context_));

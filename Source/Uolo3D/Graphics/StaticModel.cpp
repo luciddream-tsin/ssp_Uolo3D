@@ -256,7 +256,7 @@ namespace Uolo3D{
                 std::string morphName = "";
                 std::getline(modelFStream, morphName);
                 uint32_t numImpactedVB = 0;
-                modelFStream.readsome((char*)&numImpactedVB, sizeof (numImpactedVB));
+                modelFStream.read((char*)&numImpactedVB, sizeof (numImpactedVB));
                 for (int i = 0; i < numImpactedVB; ++i) {
                     uint32_t vertexBufferIndex = 0;
                     uint32_t vertexElementMask = 0;
@@ -296,8 +296,11 @@ namespace Uolo3D{
 
         //---------------------bounding box-------------beg-------------------------
         {
+            // 如果定义了 MATHFU_COMPILE_WITH_PADDING, mathfu::Vector<float, 3> 实际上大小为16,
+            // 有四个成员, 现在在mathfu/include/utilities.h, line 139 注释掉.
             vf3 minBox;
             vf3 maxBox;
+            assert(sizeof(minBox) == 12);
             modelFStream.read((char*)&minBox, sizeof (minBox));
             modelFStream.read((char*)&maxBox, sizeof (maxBox));
             boundingBox_ = BoundingBox(minBox, maxBox);

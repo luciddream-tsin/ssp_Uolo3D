@@ -1,0 +1,4 @@
+Deferred rendering modes will be advantageous once there is a large number of per-pixel lights affecting each object,
+but their disadvantages are the lack of hardware multisampling and inability to choose the lighting model per material.
+In place of multisample antialiasing, a FXAA post-processing edge filter can be used,see the MultipleViewports sample
+application (bin/Data/Scripts/09_MultipleViewports.as) for an example of how to use.
